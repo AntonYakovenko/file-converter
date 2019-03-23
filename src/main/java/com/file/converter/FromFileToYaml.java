@@ -21,8 +21,8 @@ public class FromFileToYaml {
             System.out.println("source file already exists");
         }
 
-
-        final String fileName = "src/main/resources/file.yaml";
+        File file = new File("src/main/resources/file.yaml");
+        file.createNewFile(); // if file already exists will do nothing
 
         // parse JSON and save it as YAML string
         JsonNode jsonNodeTree = new ObjectMapper().readTree(sourceFile);
@@ -33,15 +33,15 @@ public class FromFileToYaml {
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         Yaml yaml = new Yaml(options);
 
-        // get YAML objects
-        InputStream fis = new FileInputStream(fileName);
+        // create YAML objects
+        InputStream fis = new FileInputStream(file);
         Map<String, Object> oldYaml = yaml.load(fis);
         Map<String, Object> newYaml = yaml.load(yamlString);
 
-        // update file content
+        // update file if needed
         if (!newYaml.equals(oldYaml)) {
             System.out.println("API documentation has been updated");
-            FileWriter writer = new FileWriter(fileName);
+            FileWriter writer = new FileWriter(file);
             yaml.dump(newYaml, writer);
         }
     }
