@@ -9,6 +9,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 @SuppressWarnings("Duplicates")
 public class FromFileToYaml {
@@ -26,13 +27,18 @@ public class FromFileToYaml {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNodeTree = objectMapper.readTree(sourceFile);
 
-        // save it as YAML
+        // save it as YAML string
         YAMLMapper yamlMapper = new YAMLMapper();
         String yamlString = yamlMapper.writeValueAsString(jsonNodeTree);
 
+        // configure dumper options
+        DumperOptions options = new DumperOptions();
+        options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+        options.setPrettyFlow(true);
+
         // create YAML object
-        Yaml yaml = new Yaml();
-        Object yamlObject = yaml.load(yamlString);
+        Yaml yaml = new Yaml(options);
+        Map<String, Object> yamlObject = yaml.load(yamlString);
 
         // write into target file
         FileWriter writer = new FileWriter("src/main/resources/file.yaml");
