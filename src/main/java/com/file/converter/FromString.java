@@ -17,7 +17,7 @@ public class FromString {
         System.out.println(">>> " + jsonNodeTree);
         // save it as YAML
         YAMLMapper yamlMapper = new YAMLMapper();
-        String jsonAsYaml = yamlMapper.writeValueAsString(jsonNodeTree);
+        String jsonAsYaml = yamlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNodeTree);
 
         System.out.println(jsonAsYaml);
 

@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
-public class FromFile {
+@SuppressWarnings("Duplicates")
+public class FromFileToJson {
     public static void main(String[] args) throws IOException {
 
         // create source file or read existing one
@@ -20,7 +21,6 @@ public class FromFile {
         // parse JSON
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode json = objectMapper.readValue(sourceFile, JsonNode.class);
-
 
         // create target file or read existing one
         File targetFile = new File("src/main/resources/file.json");
