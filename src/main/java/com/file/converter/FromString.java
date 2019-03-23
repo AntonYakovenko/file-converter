@@ -14,15 +14,17 @@ public class FromString {
 
         // parse JSON
         JsonNode jsonNodeTree = new ObjectMapper().readTree(jsonString);
+        System.out.println(">>> " + jsonNodeTree);
         // save it as YAML
-        String jsonAsYaml = new YAMLMapper().writeValueAsString(jsonNodeTree);
+        YAMLMapper yamlMapper = new YAMLMapper();
+        String jsonAsYaml = yamlMapper.writeValueAsString(jsonNodeTree);
 
         System.out.println(jsonAsYaml);
 
         System.out.println();
 
         Yaml yaml = new Yaml();
-        FileWriter writer = new FileWriter("src/main/resources/test.yaml");
+        FileWriter writer = new FileWriter("src/main/resources/string.yaml");
         yaml.dump(jsonAsYaml, writer);
 
     }
